@@ -73,9 +73,7 @@ public class Temperature extends JFrame {
         temperatureScrollBar.setOrientation(SwingConstants.HORIZONTAL);
         temperatureScrollBar.setPreferredSize(new Dimension(200,30));
         colorPanel.add(temperatureScrollBar);
-        temperatureScrollBar.addAdjustmentListener(e->{
-            temperatureScrollBarAdjustmentValueChanged(e);
-        });
+        temperatureScrollBar.addAdjustmentListener(this::temperatureScrollBarAdjustmentValueChanged);
 
 
         pack();
