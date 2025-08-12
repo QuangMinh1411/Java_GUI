@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/Calendar/Calendar.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/Calendar/Calendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/CodeProblem/CodeProblem.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/CodeProblem/CodeProblem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/ComboBoxProb/ComboBoxProb.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/ComboBoxProb/ComboBoxProb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/CustomerDatabase/CustomerDatabase.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/CustomerDatabase/CustomerDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/DateInput/DateInput.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/DateInput/DateInput.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/FindBurger/FindBurger.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/FindBurger/FindBurger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/Flight/Flight.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/Flight/Flight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/ImageViewer/ImageViewer.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/ImageViewer/ImageViewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java GUI.iml" filepath="$PROJECT_DIR$/.idea/Java GUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Learning JavaFX17/JavaFXBook/JavaFXBook.iml" filepath="$PROJECT_DIR$/Learning JavaFX17/JavaFXBook/JavaFXBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/ListProblem/ListProblem.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/ListProblem/ListProblem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/MyFrame/MyFrame.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/MyFrame/MyFrame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/OddInteger/OddInteger.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/OddInteger/OddInteger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/Password/Password.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/Password/Password.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/Pizza/Pizza.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/Pizza/Pizza.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/PriceProblem/PriceProblem.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/PriceProblem/PriceProblem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/RandomNumber/RandomNumber.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/RandomNumber/RandomNumber.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/Savings/Savings.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/Savings/Savings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 2/StopWatch/StopWatch.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 2/StopWatch/StopWatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/Temperature/Temperature.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/Temperature/Temperature.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LJProjects/Chapter 3/Tiktoe/Tiktoe.iml" filepath="$PROJECT_DIR$/LJProjects/Chapter 3/Tiktoe/Tiktoe.iml" />
+    </modules>
+  </component>
+</project>
