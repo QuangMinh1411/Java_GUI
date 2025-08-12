@@ -1,58 +1,26 @@
 // NodeBoundsApp.java
 package com.jdojo.node;
 
-import java.awt.image.BufferedImage;
-
-import java.io.File;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
-
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-
 import javafx.application.Application;
 import javafx.application.Platform;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.embed.swing.SwingFXUtils;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.geometry.VPos;
-
+import javafx.geometry.*;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -61,28 +29,22 @@ import javafx.scene.effect.Reflection;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Shear;
-import javafx.scene.transform.Transform;
-import javafx.scene.transform.Translate;
-
+import javafx.scene.transform.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import javafx.util.Duration;
 import javafx.util.converter.DoubleStringConverter;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Demonstrates how three bounds - layoutBounds, boundsInLocal, and
