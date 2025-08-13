@@ -15,4 +15,5 @@ module JavaFXBook {
     opens com.jdojo.node to javafx.graphics, javafx.base;
     opens com.jdojo.color to javafx.graphics, javafx.base;
     opens com.jdojo.style to javafx.graphics, javafx.base;
+    opens com.jdojo.event to javafx.graphics, javafx.base;
 }
