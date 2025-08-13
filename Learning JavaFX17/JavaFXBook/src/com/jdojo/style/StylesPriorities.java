@@ -5,11 +5,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ButtonStyleTest extends Application {
-
-
+public class StylesPriorities extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -19,13 +18,27 @@ public class ButtonStyleTest extends Application {
         Button yesBtn = new Button("Yes");
         Button noBtn = new Button("No");
         Button cancelBtn = new Button("Cancel");
+
+        // Change the font size for the Yes button
+        // using two methods: inline style and JavaFX API
+        yesBtn.setStyle("-fx-font-size: 16px");
+        yesBtn.setFont(new Font(10));
+
+        // Change the font size for the No button using the JavaFX API
+        noBtn.setFont(new Font(8));
+
         HBox root = new HBox();
+        root.setSpacing(10);
         root.getChildren().addAll(yesBtn, noBtn, cancelBtn);
+
         Scene scene = new Scene(root);
-        var url = ResourceUtil.getResourceURLStr("css/buttonstyles.css");
-        scene.getStylesheets().add(url);
+
+        // Add a style sheet to the scene
+        var url = ResourceUtil.getResourceURLStr("css/stylespriorities.css");
+        scene.getStylesheets().addAll(url);
+
         stage.setScene(scene);
-        stage.setTitle("Styling Button");
+        stage.setTitle("Styles Priorities");
         stage.show();
     }
 }

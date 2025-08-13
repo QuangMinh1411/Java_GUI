@@ -7,25 +7,28 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ButtonStyleTest extends Application {
-
-
+public class IDSelectorTest extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        Button yesBtn = new Button("Yes");
-        Button noBtn = new Button("No");
-        Button cancelBtn = new Button("Cancel");
+        Button openBtn = new Button("Open");
+        Button saveBtn = new Button("Save");
+
+        Button closeBtn = new Button("Close");
+        closeBtn.setId("closeButton");
+
         HBox root = new HBox();
-        root.getChildren().addAll(yesBtn, noBtn, cancelBtn);
+        root.getChildren().addAll(openBtn, saveBtn, closeBtn);
+
         Scene scene = new Scene(root);
-        var url = ResourceUtil.getResourceURLStr("css/buttonstyles.css");
+        var url = ResourceUtil.getResourceURLStr("css/idselector.css");
         scene.getStylesheets().add(url);
+
         stage.setScene(scene);
-        stage.setTitle("Styling Button");
+        stage.setTitle("Using ID selectors");
         stage.show();
     }
 }

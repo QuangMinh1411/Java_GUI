@@ -9,9 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import static javafx.stage.Modality.NONE;
-import static javafx.stage.Modality.WINDOW_MODAL;
-import static javafx.stage.Modality.APPLICATION_MODAL;
+import static javafx.stage.Modality.*;
 public class StageModalityApp extends Application {
     public static void main(String[] args) {
         Application.launch(args);
