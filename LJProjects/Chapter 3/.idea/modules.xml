@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Chapter 3.iml" filepath="$PROJECT_DIR$/.idea/Chapter 3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ComboBoxProb/ComboBoxProb.iml" filepath="$PROJECT_DIR$/ComboBoxProb/ComboBoxProb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CustomerDatabase/CustomerDatabase.iml" filepath="$PROJECT_DIR$/CustomerDatabase/CustomerDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DateInput/DateInput.iml" filepath="$PROJECT_DIR$/DateInput/DateInput.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FindBurger/FindBurger.iml" filepath="$PROJECT_DIR$/FindBurger/FindBurger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Flight/Flight.iml" filepath="$PROJECT_DIR$/Flight/Flight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImageViewer/ImageViewer.iml" filepath="$PROJECT_DIR$/ImageViewer/ImageViewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ListProblem/ListProblem.iml" filepath="$PROJECT_DIR$/ListProblem/ListProblem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyFrame/MyFrame.iml" filepath="$PROJECT_DIR$/MyFrame/MyFrame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NumberGuess/NumberGuess.iml" filepath="$PROJECT_DIR$/NumberGuess/NumberGuess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Password/Password.iml" filepath="$PROJECT_DIR$/Password/Password.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Pizza/Pizza.iml" filepath="$PROJECT_DIR$/Pizza/Pizza.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Temperature/Temperature.iml" filepath="$PROJECT_DIR$/Temperature/Temperature.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tiktoe/Tiktoe.iml" filepath="$PROJECT_DIR$/Tiktoe/Tiktoe.iml" />
+    </modules>
+  </component>
+</project>
