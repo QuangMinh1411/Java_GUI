@@ -17,6 +17,8 @@ public class NoteEditor extends JFrame {
     private JRadioButtonMenuItem smallMenuItem= new JRadioButtonMenuItem("Small",true);
     private JRadioButtonMenuItem mediumMenuItem= new JRadioButtonMenuItem("Medium",false);
     private JRadioButtonMenuItem largeMenuItem= new JRadioButtonMenuItem("Large",false);
+    private JMenu helpMenu= new JMenu("Help");
+    private JMenuItem aboutMenuItem= new JMenuItem("About");
     public NoteEditor() {
         setTitle("Note Editor");
         setResizable(false);
@@ -37,12 +39,14 @@ public class NoteEditor extends JFrame {
         setJMenuBar(editorMenuBar);
         fileMenu.setMnemonic('F');
         formatMenu.setMnemonic('O');
+        helpMenu.setMnemonic('H');
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke('N', Event.CTRL_MASK));
         boldMenuItem.setAccelerator(KeyStroke.getKeyStroke('B', Event.CTRL_MASK));
         italicMenuItem.setAccelerator(KeyStroke.getKeyStroke('I', Event.CTRL_MASK));
         smallMenuItem.setAccelerator(KeyStroke.getKeyStroke('S', Event.CTRL_MASK));
         mediumMenuItem.setAccelerator(KeyStroke.getKeyStroke('M',Event.CTRL_MASK));
         largeMenuItem.setAccelerator(KeyStroke.getKeyStroke('L',Event.CTRL_MASK));
+        aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke('A',Event.CTRL_MASK));
         editorMenuBar.add(fileMenu);
         fileMenu.add(newMenuItem);
         fileMenu.addSeparator();
@@ -57,6 +61,8 @@ public class NoteEditor extends JFrame {
         sizeGroup.add(smallMenuItem);
         sizeGroup.add(mediumMenuItem);
         sizeGroup.add(largeMenuItem);
+        editorMenuBar.add(helpMenu);
+        helpMenu.add(aboutMenuItem);
 
         newMenuItem.addActionListener(this::newMenuItemActionPerformed);
         exitMenuItem.addActionListener(this::exitMenuItemActionPerformed);
@@ -65,6 +71,11 @@ public class NoteEditor extends JFrame {
         smallMenuItem.addActionListener(this::formatMenuItemActionPerformed);
         mediumMenuItem.addActionListener(this::formatMenuItemActionPerformed);
         largeMenuItem.addActionListener(this::formatMenuItemActionPerformed);
+        aboutMenuItem.addActionListener(e->{
+            JOptionPane.showMessageDialog(null,"This application is to change the style of paragraph in the text box",
+                    "About",
+                    JOptionPane.INFORMATION_MESSAGE);
+        });
         pack();
 
     }

@@ -66,9 +66,7 @@ public class Pizza extends JFrame{
         gridConstraints.gridy =0;
         gridConstraints.anchor = GridBagConstraints.WEST;
         sizePanel.add(smallRadioButton,gridConstraints);
-        smallRadioButton.addActionListener(e->{
-            sizeRadioButtonActionPerformed(e);
-        });
+        smallRadioButton.addActionListener(this::sizeRadioButtonActionPerformed);
         //mediumRadioButton
         mediumRadioButton.setText("Medium");
         sizeButtonGroup.add(mediumRadioButton);
@@ -77,9 +75,7 @@ public class Pizza extends JFrame{
         gridConstraints.gridy =1;
         gridConstraints.anchor = GridBagConstraints.WEST;
         sizePanel.add(mediumRadioButton,gridConstraints);
-        mediumRadioButton.addActionListener(e->{
-             sizeRadioButtonActionPerformed(e);
-        });
+        mediumRadioButton.addActionListener(this::sizeRadioButtonActionPerformed);
         //largeRadioButton
         largeRadioButton.setText("Large");
         sizeButtonGroup.add(largeRadioButton);
@@ -88,9 +84,7 @@ public class Pizza extends JFrame{
         gridConstraints.gridy =2;
         gridConstraints.anchor = GridBagConstraints.WEST;
         sizePanel.add(largeRadioButton,gridConstraints);
-        largeRadioButton.addActionListener(e->{
-             sizeRadioButtonActionPerformed(e);
-        });
+        largeRadioButton.addActionListener(this::sizeRadioButtonActionPerformed);
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 0;
         gridConstraints.gridy = 0;
@@ -114,9 +108,7 @@ public class Pizza extends JFrame{
         gridConstraints.gridy=0;
         gridConstraints.anchor = GridBagConstraints.WEST;
         crustPanel.add(thinRadioButton,gridConstraints);
-        thinRadioButton.addActionListener(e->{
-            crustRadioButtonActionPerformed(e);
-        });
+        thinRadioButton.addActionListener(this::crustRadioButtonActionPerformed);
         
         //thickRadioButton
         thickRadioButton.setText("Thick Crust");
@@ -127,9 +119,7 @@ public class Pizza extends JFrame{
         gridConstraints.gridy=1;
         gridConstraints.anchor = GridBagConstraints.WEST;
         crustPanel.add(thickRadioButton,gridConstraints);
-        thickRadioButton.addActionListener(e->{
-            crustRadioButtonActionPerformed(e);
-        });
+        thickRadioButton.addActionListener(this::crustRadioButtonActionPerformed);
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 0;
         gridConstraints.gridy = 1;
@@ -215,18 +205,14 @@ public class Pizza extends JFrame{
         gridConstraints.gridy = 1;
         gridConstraints.anchor = GridBagConstraints.WEST;
         getContentPane().add(takeOutRadioButton,gridConstraints);
-        takeOutRadioButton.addActionListener(e->{
-            whereRadioButtonActionPerformed(e);
-        });
+        takeOutRadioButton.addActionListener(this::whereRadioButtonActionPerformed);
         
         buildButton.setText("Build Pizza");
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 2;
         getContentPane().add(buildButton,gridConstraints);
-        buildButton.addActionListener(e->{
-            buildButtonActionPerformed(e);
-        });
+        buildButton.addActionListener(this::buildButtonActionPerformed);
         exitButton.setText("Exit");
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 2;
