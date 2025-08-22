@@ -1,16 +1,19 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class NoteEditor extends JFrame {
     private JScrollPane editorPane;
     private JTextArea editorTextArea;
+    private JFileChooser myChooser= new JFileChooser();
     private JMenuBar editorMenuBar= new JMenuBar();
     private JMenu fileMenu= new JMenu("File");
     private JMenuItem newMenuItem= new JMenuItem("New");
+    private JMenuItem openMenuItem= new JMenuItem("Open");
+    private JMenuItem saveMenuItem= new JMenuItem("Save");
     private JMenuItem exitMenuItem= new JMenuItem("Exit");
     private JMenu formatMenu= new JMenu("Format");
     private JCheckBoxMenuItem boldMenuItem= new JCheckBoxMenuItem("Bold",false);
@@ -21,7 +24,7 @@ public class NoteEditor extends JFrame {
     private JRadioButtonMenuItem mediumMenuItem= new JRadioButtonMenuItem("Medium",false);
     private JRadioButtonMenuItem largeMenuItem= new JRadioButtonMenuItem("Large",false);
     private JMenu helpMenu= new JMenu("Help");
-    private JMenuItem aboutMenuItem= new JMenuItem("About");
+    private JMenuItem aboutMenuItem= new JMenuItem("About Note Editor");
     public NoteEditor() {
         setTitle("Note Editor");
         setResizable(false);
@@ -52,6 +55,8 @@ public class NoteEditor extends JFrame {
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke('A',Event.CTRL_MASK));
         editorMenuBar.add(fileMenu);
         fileMenu.add(newMenuItem);
+        fileMenu.add(openMenuItem);
+        fileMenu.add(saveMenuItem);
         fileMenu.addSeparator();
         fileMenu.add(exitMenuItem);
         editorMenuBar.add(formatMenu);
@@ -68,6 +73,8 @@ public class NoteEditor extends JFrame {
         helpMenu.add(aboutMenuItem);
 
         newMenuItem.addActionListener(this::newMenuItemActionPerformed);
+        openMenuItem.addActionListener(this::openMenuItemActionPerformed);
+        saveMenuItem.addActionListener(this::saveMenuItemActionPerformed);
         exitMenuItem.addActionListener(this::exitMenuItemActionPerformed);
         boldMenuItem.addActionListener(this::formatMenuItemActionPerformed);
         italicMenuItem.addActionListener(this::formatMenuItemActionPerformed);
@@ -84,7 +91,6 @@ public class NoteEditor extends JFrame {
             boldMenuItem.setSelected(Boolean.parseBoolean(inputFile.readLine()));
             italicMenuItem.setSelected(Boolean.parseBoolean(inputFile.readLine()));
             fontSize = Integer.parseInt(inputFile.readLine());
-            inputFile.close();
         } catch (IOException ex) {
             JOptionPane.showConfirmDialog(null, ex.getMessage(),
                     "Error Reading Configuration File", JOptionPane.DEFAULT_OPTION,
@@ -108,6 +114,62 @@ public class NoteEditor extends JFrame {
 
         pack();
 
+    }
+
+    private void saveMenuItemActionPerformed(ActionEvent e) {
+        myChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        myChooser.setDialogTitle("Save Text File");
+        myChooser.addChoosableFileFilter(new FileNameExtensionFilter("Text Files","txt"));
+        if(myChooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+            if(myChooser.getSelectedFile().exists()){
+                int response;
+                response = JOptionPane.showConfirmDialog(
+                        null,
+                        myChooser.getSelectedFile().toString() + " exists. Overwrite?",
+                        "Confirm Save",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if(response == JOptionPane.NO_OPTION){
+                    return;
+                }
+            }
+            String fileName = myChooser.getSelectedFile().toString();
+            int dotlocation = fileName.lastIndexOf('.')    ;
+            if (dotlocation == -1) {
+                // No extension provided; default to .txt
+                fileName += ".txt";
+            } else {
+                // Replace existing extension with .txt to normalize
+                fileName = fileName.substring(0, dotlocation) + ".txt";
+            }
+            try (PrintWriter outputFile = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
+                // Write entire text content at once to avoid per-line offset calculations
+                outputFile.print(editorTextArea.getText());
+                outputFile.flush();
+            } catch (IOException ex) {
+                JOptionPane.showConfirmDialog(null, ex.getMessage(), "Error Writing File",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void openMenuItemActionPerformed(ActionEvent e) {
+        String myLine;
+        myChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        myChooser.setDialogTitle("Open Text File");
+        myChooser.addChoosableFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+        if(myChooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            try (BufferedReader inputFile = new BufferedReader(new FileReader(myChooser.getSelectedFile().toString()))) {
+                editorTextArea.setText("");
+                while ((myLine = inputFile.readLine()) != null) {
+                    editorTextArea.append(myLine + "\n");
+                }
+            } catch (IOException ex) {
+                JOptionPane.showConfirmDialog(null, ex.getMessage(), "Error Opening File",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void formatMenuItemActionPerformed(ActionEvent actionEvent) {
