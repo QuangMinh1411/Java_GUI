@@ -7,6 +7,7 @@ module JavaFXBook {
     requires javafx.web;
     requires javafx.fxml;
     requires jdk.jsobject;
+    requires transitive javafx.base;
     opens com.jdojo.intro to javafx.graphics, javafx.base;
     opens com.jdojo.binding to javafx.base, javafx.graphics;
     opens com.jdojo.collections to javafx.graphics, javafx.base;
