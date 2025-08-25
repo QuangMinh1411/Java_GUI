@@ -7,23 +7,42 @@ public class PersonStringConverter extends StringConverter<Person> {
 
     @Override
     public String toString(Person p) {
-        return p==null ? null : p.getLastName() + ", " + p.getFirstName();
+        if (p == null) {
+            return "";
+        }
+        String first = p.getFirstName();
+        String last = p.getLastName();
+        boolean hasFirst = first != null && !first.isBlank();
+        boolean hasLast = last != null && !last.isBlank();
+        if (hasFirst && hasLast) {
+            return last + ", " + first;
+        }
+        if (hasLast) {
+            return last;
+        }
+        return hasFirst ? first : "";
     }
 
     @Override
     public Person fromString(String string) {
-        Person p = null;
-        if(string==null){
-            return p;
+        if (string == null) {
+            return null;
         }
-        int commaIndex = string.indexOf(',');
-        if(commaIndex==-1){
-            p = new Person(string,null,null);
-        }else {
-            String firstName = string.substring(commaIndex+2);
-            String lastName = string.substring(0,commaIndex);
-            p = new Person(firstName,lastName,null);
+        String s = string.trim();
+        if (s.isEmpty()) {
+            return null;
         }
-        return p;
+        int commaIndex = s.indexOf(',');
+        if (commaIndex == -1) {
+            // No comma: treat as first name only (keeps prior behavior)
+            String firstOnly = s;
+            return new Person(firstOnly, null, null);
+        } else {
+            String lastName = s.substring(0, commaIndex).trim();
+            String firstPart = s.substring(commaIndex + 1).trim(); // handles optional space
+            String firstName = firstPart.isEmpty() ? null : firstPart;
+            String last = lastName.isEmpty() ? null : lastName;
+            return new Person(firstName, last, null);
+        }
     }
 }
