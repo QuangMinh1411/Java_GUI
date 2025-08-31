@@ -3,7 +3,9 @@ package com.jdojo.control;
 import com.jdojo.mvc.model.Person;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -42,12 +44,24 @@ public class SimpleTableView extends Application {
     // Creates the table and configures its columns without altering original behavior
     private TableView<Person> buildPersonTable() {
         TableView<Person> table = new TableView<>(PersonTableUtil.getPersonList());
-        table.getColumns().addAll(
-                PersonTableUtil.getIdColumn(),
-                PersonTableUtil.getFirstNameColumn(),
-                PersonTableUtil.getLastNameColumn(),
-                PersonTableUtil.getBirthDateColumn()
-        );
+//        table.getColumns().addAll(
+//                PersonTableUtil.getIdColumn(),
+//                PersonTableUtil.getFirstNameColumn(),
+//                PersonTableUtil.getLastNameColumn(),
+//                PersonTableUtil.getBirthDateColumn()
+//        );
+        // Create leaf columns - Id, First and Last
+        TableColumn<Person, String> idCol = new TableColumn<>("Id");
+        idCol.setCellValueFactory(new PropertyValueFactory<>("personId"));
+        TableColumn<Person, String> fNameCol = new TableColumn<>("First");
+        fNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        TableColumn<Person, String> lNameCol = new TableColumn<>("Last");
+        lNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+// Create Name column and nest First and Last columns in it
+        TableColumn<Person, String> nameCol = new TableColumn<>("Name");
+        nameCol.getColumns().addAll(fNameCol, lNameCol);
+// Add columns to the TableView
+        table.getColumns().addAll(idCol, nameCol);
         return table;
     }
 
