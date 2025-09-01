@@ -8,6 +8,7 @@ module JavaFXBook {
     requires javafx.fxml;
     requires jdk.jsobject;
     requires transitive javafx.base;
+    requires kotlin.stdlib;
     opens com.jdojo.intro to javafx.graphics, javafx.base;
     opens com.jdojo.binding to javafx.base, javafx.graphics;
     opens com.jdojo.collections to javafx.graphics, javafx.base;
@@ -22,4 +23,5 @@ module JavaFXBook {
     opens com.jdojo.mvc.model to javafx.graphics, javafx.base;
     opens com.jdojo.mvc.view to javafx.graphics, javafx.base;
     opens com.jdojo.control to javafx.graphics, javafx.base;
+    opens com.jdojo.shape to javafx.base,javafx.graphics;
 }
