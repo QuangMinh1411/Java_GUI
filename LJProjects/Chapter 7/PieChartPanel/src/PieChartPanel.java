@@ -29,7 +29,7 @@ public class PieChartPanel extends JPanel {
         Arc2D.Double myArc;
         for(int i=0;i<n;i++){
             myArc = new Arc2D.Double(borderRectangle.x, borderRectangle.y, borderRectangle.width, borderRectangle.height,
-                    startAngle, y[i]*360/sum, Arc2D.OPEN);
+                    startAngle, y[i]*360/sum, Arc2D.PIE);
             g2D.fill(myArc);
             g2D.setPaint(c[i]);
             g2D.draw(myArc);
