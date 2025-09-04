@@ -1,125 +1,168 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.util.Random;
 
 public class DiceGame extends JFrame {
-    private JLabel diceLabel1 = new JLabel();
-    private JLabel diceLabel2 = new JLabel();
-    private JPanel gamePanel = new JPanel();
-    private ImageIcon diceIcon1 = new ImageIcon();
-    private ImageIcon diceIcon2 = new ImageIcon();
-    private JButton rollButton = new JButton();
-    private JButton quitButton = new JButton();
-    private JLabel scoreLabel1 = new JLabel();
-    private JLabel scoreLabel2 = new JLabel();
-    private JPanel controlPanel = new JPanel();
-    private Random myRandom = new Random();
-    int[] scores = new int[2];
+    private static final Dimension GAME_PANEL_SIZE = new Dimension(400, 300);
+    private static final Dimension CONTROL_PANEL_SIZE = new Dimension(400, 100);
+    private static final Dimension DICE_LABEL_SIZE = new Dimension(120, 120);
+    private static final Insets DEFAULT_INSETS = new Insets(10, 10, 10, 10);
+
+    private final JLabel diceLabel1 = new JLabel("?", SwingConstants.CENTER);
+    private final JLabel diceLabel2 = new JLabel("?", SwingConstants.CENTER);
+    private final JPanel gamePanel = new JPanel(new GridBagLayout());
+    private final JPanel controlPanel = new JPanel(new GridBagLayout());
+    private final JButton rollButton = new JButton("Roll");
+    private final JButton quitButton = new JButton("Quit");
+    private final JLabel scoreLabel1 = new JLabel();
+    private final JLabel scoreLabel2 = new JLabel();
+    private final Random random = new Random();
+    private final int[] scores = new int[2];
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(()->{
-            new DiceGame().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new DiceGame().setVisible(true));
     }
+
     public DiceGame() {
         setTitle("Dice Game Board");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints gridConstraints;
-        scores[0]=0;
-        scores[1]=0;
-        //Dice Panel
-        gamePanel.setLayout(new GridBagLayout());
-        gamePanel.setBackground(Color.GRAY);
-        gamePanel.setBorder(BorderFactory.createTitledBorder("Dice"));
-        gamePanel.setPreferredSize(new Dimension(400,300));
 
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 0;
-        gridConstraints.gridy = 0;
-        getContentPane().add(gamePanel, gridConstraints);
+        initGamePanel();
+        initControlPanel();
 
-        //Control Panel
-        controlPanel.setLayout(new GridBagLayout());
-        controlPanel.setBackground(Color.WHITE);
-        controlPanel.setBorder(BorderFactory.createTitledBorder("Playing control"));
-        controlPanel.setPreferredSize(new Dimension(400,100));
-
-        rollButton.setText("Roll");
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 0;
-        gridConstraints.gridy = 0;
-        gridConstraints.insets = new Insets(0,10,10,10);
-        controlPanel.add(rollButton, gridConstraints);
-        rollButton.addActionListener(e->{
-            rollButtonActionPerformed(e);
-        });
-
-        quitButton.setText("Quit");
-        gridConstraints= new GridBagConstraints();
-        gridConstraints.gridx = 0;
-        gridConstraints.gridy = 1;
-        gridConstraints.insets = new Insets(10,10,10,10);
-        gridConstraints.anchor = GridBagConstraints.WEST;
-        quitButton.addActionListener(e->{
-            System.exit(0);
-        });
-
-        controlPanel.add(quitButton, gridConstraints);
-
-        scoreLabel1.setText("Player 1: " + scores[0]);
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 1;
-        gridConstraints.gridy = 0;
-        gridConstraints.insets = new Insets(0,10,0,10);
-        controlPanel.add(scoreLabel1, gridConstraints);
-
-        scoreLabel2.setText("Player 2: " + scores[1]);
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 1;
-        gridConstraints.gridy = 1;
-        gridConstraints.insets = new Insets(0,10,0,10);
-        controlPanel.add(scoreLabel2, gridConstraints);
-
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 0;
-        gridConstraints.gridy = 1;
-        getContentPane().add(controlPanel, gridConstraints);
         pack();
         setLocationRelativeTo(null);
+    }
 
+    private void initGamePanel() {
+        gamePanel.setBackground(Color.GRAY);
+        gamePanel.setBorder(BorderFactory.createTitledBorder("Dice"));
+        gamePanel.setPreferredSize(GAME_PANEL_SIZE);
+
+        // Configure dice labels once and add them to the grid
+        configureDiceLabel(diceLabel1);
+        configureDiceLabel(diceLabel2);
+
+        GridBagConstraints gc = baseGC();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = DEFAULT_INSETS;
+        gamePanel.add(diceLabel1, gc);
+
+        gc = baseGC();
+        gc.gridx = 1;
+        gc.gridy = 0;
+        gc.insets = DEFAULT_INSETS;
+        gamePanel.add(diceLabel2, gc);
+
+        GridBagConstraints frameGC = baseGC();
+        frameGC.gridx = 0;
+        frameGC.gridy = 0;
+        getContentPane().add(gamePanel, frameGC);
+    }
+
+    private void initControlPanel() {
+        controlPanel.setBackground(Color.WHITE);
+        controlPanel.setBorder(BorderFactory.createTitledBorder("Playing control"));
+        controlPanel.setPreferredSize(CONTROL_PANEL_SIZE);
+
+        GridBagConstraints gc = baseGC();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = new Insets(0, 10, 10, 10);
+        controlPanel.add(rollButton, gc);
+        rollButton.addActionListener(this::rollButtonActionPerformed);
+
+        gc = baseGC();
+        gc.gridx = 0;
+        gc.gridy = 1;
+        gc.insets = DEFAULT_INSETS;
+        gc.anchor = GridBagConstraints.WEST;
+        controlPanel.add(quitButton, gc);
+        quitButton.addActionListener(e -> System.exit(0));
+
+        scores[0] = 0;
+        scores[1] = 0;
+        updateScoreLabels();
+
+        gc = baseGC();
+        gc.gridx = 1;
+        gc.gridy = 0;
+        gc.insets = new Insets(0, 10, 0, 10);
+        controlPanel.add(scoreLabel1, gc);
+
+        gc = baseGC();
+        gc.gridx = 1;
+        gc.gridy = 1;
+        gc.insets = new Insets(0, 10, 0, 10);
+        controlPanel.add(scoreLabel2, gc);
+
+        GridBagConstraints frameGC = baseGC();
+        frameGC.gridx = 0;
+        frameGC.gridy = 1;
+        getContentPane().add(controlPanel, frameGC);
+    }
+
+    private void configureDiceLabel(JLabel label) {
+        label.setPreferredSize(DICE_LABEL_SIZE);
+        label.setOpaque(true);
+        label.setBackground(Color.LIGHT_GRAY);
+        label.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        label.setFont(label.getFont().deriveFont(Font.BOLD, 24f));
+    }
+
+    private GridBagConstraints baseGC() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.CENTER;
+        return gc;
     }
 
     private void rollButtonActionPerformed(ActionEvent e) {
+        int dice1 = random.nextInt(6) + 1;
+        int dice2 = random.nextInt(6) + 1;
 
-        int dice1 = myRandom.nextInt(6) + 1;
-        int dice2 = myRandom.nextInt(6) + 1;
-        diceIcon1 = new ImageIcon(getClass().getResource("resources/image/face"+dice1+".png"));
-        diceIcon2 = new ImageIcon(getClass().getResource("resources/image/face"+dice2+".png"));
-        diceLabel1.setIcon(diceIcon1);
-        diceLabel1.setPreferredSize(new Dimension(120,120));
-        GridBagConstraints gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 0;
-        gridConstraints.gridy = 0;
-        gridConstraints.insets = new Insets(10,10,10,10);
-        gamePanel.add(diceLabel1, gridConstraints);
+        setDice(diceLabel1, dice1);
+        setDice(diceLabel2, dice2);
 
-        diceLabel2.setIcon(diceIcon2);
-        diceLabel2.setPreferredSize(new Dimension(120,120));
-        gridConstraints = new GridBagConstraints();
-        gridConstraints.gridx = 1;
-        gridConstraints.gridy = 0;
-        gridConstraints.insets = new Insets(10,10,10,10);
-        gamePanel.add(diceLabel2, gridConstraints);
         scores[0] += dice1;
         scores[1] += dice2;
-        scoreLabel1.setText("Player 1: " + scores[0]);
-        scoreLabel2.setText("Player 2: " + scores[1]);
+        updateScoreLabels();
 
+        gamePanel.revalidate();
+        gamePanel.repaint();
+    }
 
+    private void setDice(JLabel label, int value) {
+        ImageIcon icon = loadDiceIcon(value);
+        if (icon != null) {
+            label.setIcon(icon);
+            label.setText("");
+        } else {
+            // Fallback to text if resource is not found
+            label.setIcon(null);
+            label.setText(String.valueOf(value));
         }
     }
 
+    private void updateScoreLabels() {
+        scoreLabel1.setText("Player 1: " + scores[0]);
+        scoreLabel2.setText("Player 2: " + scores[1]);
+    }
 
+    private ImageIcon loadDiceIcon(int value) {
+        // Try both relative and absolute resource paths to be resilient
+        String path = "resources/image/face" + value + ".png";
+        URL url = getClass().getResource(path);
+        if (url == null) {
+            url = getClass().getResource("/" + path);
+        }
+        return url != null ? new ImageIcon(url) : null;
+    }
+}
