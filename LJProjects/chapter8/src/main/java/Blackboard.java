@@ -1,4 +1,49 @@
 import javax.swing.*;
+/*
+ Blackbaord.java
+ 
+ Overview
+ - A simple Swing-based “blackboard” application for freehand drawing.
+ - Users draw on a black panel using the left or right mouse button, each mapped to a selectable color.
+ - Includes a color palette, live color swatches (left/right), and a File menu with New and Exit.
+ 
+ UI Structure
+ - JFrame (Blackboard) with GridBagLayout.
+ - drawPanel: main 500x400 drawing surface with black background (gridx=0, gridy=0, gridheight=2).
+ - leftColorLabel/rightColorLabel: 40x40 swatches showing current left/right draw colors (gridx=1/2, gridy=0).
+ - colorPanel: titled panel containing 8 clickable color labels in a 2x4 layout (gridx=1..2, gridy=1).
+ - MenuBar: File -> New (clear drawing), Exit (quit app).
+ 
+ Event Flow
+ - File->New: confirms and clears the drawPanel by painting a filled rectangle over its entire area.
+ - File->Exit: confirms and exits; disposes of the Graphics2D context.
+ - Mouse on drawPanel:
+   * mousePressed: records start point and sets drawColor from left/right selection based on button.
+   * mouseDragged: draws a short Line2D from the previous point to current pointer (creates a freehand effect), then updates previous point.
+   * mouseReleased: draws the final segment to the release point.
+ - Mouse on color labels:
+   * Left-click sets leftColor and updates the left swatch.
+   * Right-click sets rightColor and updates the right swatch.
+ 
+ Key Fields
+ - g2D: Graphics2D obtained from drawPanel.getGraphics() and used for immediate-mode drawing.
+ - xPrevious/yPrevious: track last mouse position to create continuous lines while dragging.
+ - leftColor/rightColor: active colors for left- and right-button drawing; drawColor holds the color in use during a stroke.
+ - colorLabels[8]: palette of preset colors (GRAY, BLUE, GREEN, CYAN, RED, MAGENTA, YELLOW, WHITE).
+ 
+ Notes and Limitations
+ - Immediate-mode drawing: This code draws directly via g2D from drawPanel.getGraphics().
+   * This is quick for demos but not durable across repaint events (e.g., window occlusion, theme changes), since Swing may repaint the panel and erase drawings.
+   * A more robust approach is to draw into a BufferedImage (model) and override drawPanel’s paintComponent to render the image (view), ensuring persistence across repaints.
+ - Resizing is disabled (setResizable(false)), so the drawing area is fixed and no resize handling is needed.
+ - Quality/UX improvements (optional): enable rendering hints (antialiasing), provide stroke width controls, add Undo/Save, or change cursor to indicate active color.
+ - Minor: dialogs contain small typos in prompt strings; purely cosmetic.
+ 
+ How to Use
+ - Left-drag on the black panel to draw with the left swatch color; right-drag for the right swatch color.
+ - Click a palette color with Left/Right mouse button to assign it to the respective swatch.
+ - Use File -> New to clear the drawing; File -> Exit to quit.
+*/
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
