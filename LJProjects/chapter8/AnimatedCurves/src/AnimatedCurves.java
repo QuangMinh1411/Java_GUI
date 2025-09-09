@@ -17,7 +17,7 @@ public class AnimatedCurves extends JFrame{
     static boolean shapeDrawn = true; //set to true for proper initialization
     static boolean shapeFilled = false;
     static Color fillColor;
-    static Vector<Point2D.Double> myPoints = new Vector(50, 10);
+    static Vector<Point2D.Double> myPoints = new Vector<>(50, 10);
     Random myRandom = new Random();
 
     public static void main(String[] args) {
@@ -61,10 +61,7 @@ public class AnimatedCurves extends JFrame{
         getContentPane().add(fillButton, gridBagConstraints);
         fillButton.addActionListener(this::fillButtonActionPerformed);
         
-        myTimer = new javax.swing.Timer(100, (ActionEvent e) -> {
-           
-            myTimerActionPerformed(e);
-        }
+        myTimer = new javax.swing.Timer(100, this::myTimerActionPerformed
         );
         pack();
         setLocationRelativeTo(null);
@@ -112,7 +109,7 @@ public class AnimatedCurves extends JFrame{
         drawPanel.repaint();
     }
 
-    class GraphicsPanel extends JPanel {
+     static class GraphicsPanel extends JPanel {
         public GraphicsPanel() {}
         @Override
         protected void paintComponent(Graphics g) {
