@@ -1,12 +1,54 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 public class GradientPainting extends JFrame {
+    private static final long serialVersionUID = 1L;
+
+    // UI constants
+    private static final int LABEL_WIDTH = 120;
+    private static final int LABEL_HEIGHT = 20;
+    private static final int PAINT_PANEL_WIDTH = 350;
+    private static final int PAINT_PANEL_HEIGHT = 250;
+    private static final int GRID_INSET_TOP = 10;
+    private static final int GRID_INSET_LEFT = 5;
+    private static final int GRID_INSET_RIGHT = 0;
+    private static final int GRID_INSET_BOTTOM_DEFAULT = 0;
+    private static final int GRID_INSET_BOTTOM_BUTTON = 10;
+
+    // Selection marker constants
+    private static final int MARKER_SIZE = 3;
+    private static final int MARKER_OFFSET = 1; // half of size for centering
+
+    // Defaults
+    private static final int DEFAULT_COLOR1_INDEX = 0; // Black
+    private static final int DEFAULT_COLOR2_INDEX = 6; // White
+
+    // Numeric stability
+    private static final double POINT_EPSILON = 1e-6;
+
     private final JLabel point1Label = new JLabel("Point 1: (xxx,xxx)");
     private final JLabel point2Label = new JLabel("Point 2: (xxx,xxx)");
 
@@ -30,11 +72,12 @@ public class GradientPainting extends JFrame {
         getContentPane().setLayout(new GridBagLayout());
 
         // Left controls
-        point1Label.setPreferredSize(new Dimension(120, 20));
+        point1Label.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        point1Label.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 5, 0, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_DEFAULT, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(point1Label, gbc);
 
@@ -42,17 +85,17 @@ public class GradientPainting extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.insets = new Insets(10, 5, 0, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_DEFAULT, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(color1ComboBox, gbc);
         color1ComboBox.addActionListener(e -> updateGradientIfActive());
 
-        point2Label.setPreferredSize(new Dimension(120, 20));
-        point2Label.setHorizontalAlignment(SwingConstants.CENTER);
+        point2Label.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+        point2Label.setHorizontalAlignment(SwingConstants.LEFT);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.insets = new Insets(10, 5, 0, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_DEFAULT, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(point2Label, gbc);
 
@@ -60,7 +103,7 @@ public class GradientPainting extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.insets = new Insets(10, 5, 0, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_DEFAULT, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(color2ComboBox, gbc);
         color2ComboBox.addActionListener(e -> updateGradientIfActive());
@@ -68,7 +111,7 @@ public class GradientPainting extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.insets = new Insets(10, 5, 0, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_DEFAULT, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(cyclicCheckBox, gbc);
         cyclicCheckBox.addActionListener(e -> updateGradientIfActive());
@@ -77,13 +120,13 @@ public class GradientPainting extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.insets = new Insets(10, 5, 10, 0);
+        gbc.insets = new Insets(GRID_INSET_TOP, GRID_INSET_LEFT, GRID_INSET_BOTTOM_BUTTON, GRID_INSET_RIGHT);
         gbc.anchor = GridBagConstraints.WEST;
         getContentPane().add(paintButton, gbc);
         paintButton.addActionListener(e -> applyGradient());
 
         // Paint panel
-        paintPanel.setPreferredSize(new Dimension(350, 250));
+        paintPanel.setPreferredSize(new Dimension(PAINT_PANEL_WIDTH, PAINT_PANEL_HEIGHT));
         paintPanel.setBackground(Color.WHITE);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -118,7 +161,8 @@ public class GradientPainting extends JFrame {
             color2ComboBox.addItem(item);
         }
         // Defaults: keep same as original intent
-        color2ComboBox.setSelectedIndex(6); // White
+        color1ComboBox.setSelectedIndex(DEFAULT_COLOR1_INDEX); // Black
+        color2ComboBox.setSelectedIndex(DEFAULT_COLOR2_INDEX); // White
 
         pack();
         setLocationRelativeTo(null);
@@ -171,7 +215,9 @@ public class GradientPainting extends JFrame {
     }
 
     private static String formatPointLabel(String prefix, Point2D p) {
-        return String.format("%s: (%.0f,%.0f)", prefix, p.getX(), p.getY());
+        int x = (int) Math.round(p.getX());
+        int y = (int) Math.round(p.getY());
+        return String.format("%s: (%d,%d)", prefix, x, y);
     }
 
     private static final class ColorItem {
@@ -188,6 +234,8 @@ public class GradientPainting extends JFrame {
     }
 
     private static final class GradientPanel extends JPanel {
+        private static final long serialVersionUID = 1L;
+
         private Point2D p1;
         private Point2D p2;
         private Color c1 = Color.BLACK;
@@ -197,8 +245,8 @@ public class GradientPainting extends JFrame {
 
         public Point2D getFirstPoint() { return p1; }
         public Point2D getSecondPoint() { return p2; }
-        public void setFirstPoint(Point2D p) { this.p1 = p; }
-        public void setSecondPoint(Point2D p) { this.p2 = p; }
+        public void setFirstPoint(Point2D p) { this.p1 = (p != null) ? new Point2D.Double(p.getX(), p.getY()) : null; }
+        public void setSecondPoint(Point2D p) { this.p2 = (p != null) ? new Point2D.Double(p.getX(), p.getY()) : null; }
         public void setColors(Color c1, Color c2) { this.c1 = c1; this.c2 = c2; }
         public void setCyclic(boolean cyclic) { this.cyclic = cyclic; }
         public boolean isGradientActive() { return gradientActive; }
@@ -212,7 +260,13 @@ public class GradientPainting extends JFrame {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 if (gradientActive && p1 != null && p2 != null) {
-                    GradientPaint gp = new GradientPaint(p1, c1, p2, c2, cyclic);
+                    // Avoid degenerate gradient when points are identical
+                    Point2D lp1 = p1;
+                    Point2D lp2 = p2;
+                    if (lp1.distance(lp2) < POINT_EPSILON) {
+                        lp2 = new Point2D.Double(lp2.getX() + 1, lp2.getY());
+                    }
+                    GradientPaint gp = new GradientPaint(lp1, c1, lp2, c2, cyclic);
                     g2.setPaint(gp);
                     g2.fillRect(0, 0, getWidth(), getHeight());
                     return;
@@ -221,11 +275,13 @@ public class GradientPainting extends JFrame {
                 // Draw selection guides (points and line)
                 if (p1 != null) {
                     g2.setPaint(Color.RED);
-                    g2.fill(new Ellipse2D.Double(p1.getX() - 1, p1.getY() - 1, 3, 3));
+                    g2.fill(new Ellipse2D.Double(p1.getX() - MARKER_OFFSET, p1.getY() - MARKER_OFFSET, MARKER_SIZE, MARKER_SIZE));
                 }
                 if (p2 != null) {
                     g2.setPaint(Color.RED);
-                    g2.fill(new Ellipse2D.Double(p2.getX() - 1, p2.getY() - 1, 3, 3));
+                    g2.fill(new Ellipse2D.Double(p2.getX() - MARKER_OFFSET, p2.getY() - MARKER_OFFSET, MARKER_SIZE, MARKER_SIZE));
+                }
+                if (p1 != null && p2 != null) {
                     g2.setPaint(Color.BLACK);
                     g2.draw(new Line2D.Double(p1, p2));
                 }
