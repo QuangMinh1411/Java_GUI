@@ -1,0 +1,6 @@
+5
+Learn Java is fun
+1.23
+-4
+true
+Another string type
