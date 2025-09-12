@@ -3,8 +3,8 @@ module com.quangminh.javafxdummy {
     requires javafx.fxml;
 
 
-    opens com.quangminh.javafxdummy to javafx.fxml;
-    exports com.quangminh.javafxdummy;
     opens com.quangminh.javafxdummy.userinput to javafx.fxml;
     exports com.quangminh.javafxdummy.userinput;
+    opens com.quangminh.javafxdummy.pizza to javafx.fxml;
+    exports com.quangminh.javafxdummy.pizza;
 }
