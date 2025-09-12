@@ -20,19 +20,23 @@ public class RolePlayerController {
     private Button btnOK;
 
     @FXML
-    public void btnOK_Click(ActionEvent e) {
-        String errorMessage = "";
-        if (txtCharacter.getText().isEmpty()) {
-            errorMessage += "Character name is empty\n";
+    public void onOk(ActionEvent event) {
+        String character = txtCharacter.getText() == null ? "" : txtCharacter.getText().trim();
+        String actor = txtActor.getText() == null ? "" : txtActor.getText().trim();
+
+        StringBuilder errors = new StringBuilder();
+        if (character.isBlank()) {
+            errors.append("Character name is empty\n");
         }
-        if (txtActor.getText().isEmpty()) {
-            errorMessage += "Actor name is empty\n";
+        if (actor.isBlank()) {
+            errors.append("Actor name is empty\n");
         }
-        if (errorMessage.isEmpty()) {
-            String message = "The role of "+txtCharacter.getText()+" will be played by "+txtActor.getText();
+
+        if (errors.length() == 0) {
+            String message = String.format("The role of %s will be played by %s.", character, actor);
             MessageBox.show(message, "Cast");
-        }else {
-            MessageBox.show(errorMessage, "Missing Data");
+        } else {
+            MessageBox.show(errors.toString(), "Missing Data");
         }
     }
 }

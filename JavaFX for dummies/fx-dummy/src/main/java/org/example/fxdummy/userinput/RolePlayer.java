@@ -13,7 +13,7 @@ public class RolePlayer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fxdummy/role-view.fxml"));
-        Scene scene = new Scene(loader.load(), 300, 250);
+        Scene scene = new Scene(loader.load());
         stage.setTitle("Role Player");
         stage.setScene(scene);
         stage.show();
