@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="396.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quangminh.javafxdummy.userinput.RolePlayerController">
+   <children>
+      <HBox fx:id="paneCharacter" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label fx:id="lblCharacter" alignment="BOTTOM_RIGHT" text="Character's Name" />
+            <TextField fx:id="txtCharacter" promptText="Enter the name of the character" />
+         </children>
+      </HBox>
+      <HBox fx:id="paneActor" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label fx:id="lblActor" alignment="BOTTOM_RIGHT" text="Actor's Name" />
+            <TextField fx:id="txtActor" promptText="Enter the name of the actor here">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></TextField>
+         </children>
+      </HBox>
+      <HBox fx:id="paneButton" alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Button fx:id="btnOK" mnemonicParsing="false" onAction="#onOk" text="OK" />
+         </children></HBox>
+   </children>
+</VBox>
