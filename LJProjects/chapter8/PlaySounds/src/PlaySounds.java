@@ -11,9 +11,7 @@ public class PlaySounds extends JFrame {
     private Clip currentClip;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new PlaySounds().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new PlaySounds().setVisible(true));
     }
 
     public PlaySounds(){
