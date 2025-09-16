@@ -26,4 +26,5 @@ module JavaFXBook {
     opens com.jdojo.shape to javafx.base,javafx.graphics;
     opens com.jdojo.shape3d to javafx.graphics, javafx.base;
     opens com.jdojo.effect to javafx.graphics, javafx.base;
+    opens com.jdojo.transform to javafx.graphics,javafx.base;
 }
