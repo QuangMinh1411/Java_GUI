@@ -28,4 +28,5 @@ module JavaFXBook {
     opens com.jdojo.effect to javafx.graphics, javafx.base;
     opens com.jdojo.transform to javafx.graphics,javafx.base;
     opens com.jdojo.animation to javafx.base,javafx.graphics;
+    opens com.jdojo.chart to javafx.graphics, javafx.base;
 }
