@@ -30,4 +30,5 @@ module JavaFXBook {
     opens com.jdojo.animation to javafx.base,javafx.graphics;
     opens com.jdojo.chart to javafx.graphics, javafx.base;
     opens com.jdojo.image to javafx.graphics, javafx.base;
+    opens com.jdojo.canvas to javafx.graphics, javafx.base;
 }
