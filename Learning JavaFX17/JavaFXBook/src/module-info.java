@@ -33,4 +33,5 @@ module JavaFXBook {
     opens com.jdojo.canvas to javafx.graphics, javafx.base;
     opens com.jdojo.dnd to javafx.graphics,javafx.base;
     opens com.jdojo.concurrent to javafx.graphics,javafx.base;
+    opens com.jdojo.media to javafx.graphics, javafx.base;
 }
