@@ -1,0 +1,45 @@
+package com.jdojo.fxml;
+
+import com.jdojo.util.ResourceUtil;
+import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SayHelloController{
+    // The refernce of msgLbl will be injected by the FXML loader
+    @FXML
+    private Label msgLbl;
+
+    // location and resources will be automatically injected by the FXML laoder
+    @FXML
+    private URL location;
+
+    @FXML
+    private ResourceBundle resources;
+
+    // Add a public no-args construtcor explicitly just to
+    // emphasize that it is needed for a controller
+    public SayHelloController() {
+    }
+
+    @FXML
+    private void initialize() {
+        System.out.println("Initializing SayHelloController...");
+        System.out.println("Location = " + location);
+        System.out.println("Resources = " + resources);
+    }
+
+    @FXML
+    private void sayHello() {
+        msgLbl.setText("Hello from FXML!");
+    }
+
+}
